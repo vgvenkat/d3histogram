@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg'
-import Preloading from './Preloading';
-
+import Preloading from './components/Preloading';
+import * as d3 from 'd3';
+import _ from 'lodash';
+import { loadAllData } from './DataHandling';
 class App extends Component {
   state = {
-    techSalaries: []
+    techSalaries: [],
+    countyNames: [],
+    medianIncomes: []
+  }
+  componentWillMount() {
+    loadAllData(data => this.setState(data));
   }
   render() {
     if(this.state.techSalaries.length<1) {
@@ -12,14 +19,8 @@ class App extends Component {
     }
     
       return (
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to React</h2>
-          </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
+        <div className="App container">
+          <h1>Loaded {this.state.techSalaries.length} salaries</h1>
         </div>
       );
    
